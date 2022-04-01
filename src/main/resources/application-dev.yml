@@ -6,3 +6,28 @@
 server:
   address: 127.0.0.1
   port: 8080
+cloud:
+  aws:
+    credentials:
+      access-key: ${IAM_ACCESS_KEY}
+      secret-key: ${IAM_PRIVATE_ACCESS_KEY}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+spring:
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/monolithic_api_dev
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+#로컬환경에서 운영되므로, EC2 Metadata 설정중 오류가 발생한다.
+# 자세한 내용은 https://h-kkaemi.tistory.com/24 참조
+logging.level.com.amazonaws.util.EC2MetadataUtils: error
