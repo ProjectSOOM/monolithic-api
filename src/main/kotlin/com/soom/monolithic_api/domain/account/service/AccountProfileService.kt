@@ -1,3 +1,7 @@
 package com.soom.monolithic_api.domain.account.service
 
-interface AccountProfileService
+import com.soom.monolithic_api.domain.account.dto.AccountProfileDto
+
+interface AccountProfileService {
+    fun getProfile(id: String): AccountProfileDto
+}
