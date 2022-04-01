@@ -8,9 +8,9 @@ sealed class AccountProfileDto(
 
 class TeacherProfileDto(
     basic: AccountBasicDto, auth: AccountAuthDto, meta: AccountMetaDto,
-    teacher: TeacherDto
+    val teacher: TeacherDto
 ): AccountProfileDto(basic, auth, meta)
 class StudentProfileDto(
     basic: AccountBasicDto, auth: AccountAuthDto, meta: AccountMetaDto,
-    student: StudentDto
+    val student: StudentDto
 ): AccountProfileDto(basic, auth, meta)
