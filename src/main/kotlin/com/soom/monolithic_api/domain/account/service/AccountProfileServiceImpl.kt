@@ -1,18 +1,16 @@
 package com.soom.monolithic_api.domain.account.service
 
 import com.soom.monolithic_api.domain.account.dto.AccountDto
-import com.soom.monolithic_api.domain.account.exception.UnknownAccountException
-import com.soom.monolithic_api.domain.account.repository.StudentRepository
-import com.soom.monolithic_api.domain.account.repository.TeacherRepository
+import com.soom.monolithic_api.domain.account.entity.StudentEntity
+import com.soom.monolithic_api.domain.account.entity.TeacherEntity
+import com.soom.monolithic_api.domain.account.template.AccountTemplate
 import org.springframework.stereotype.Service
 
 @Service
 class AccountProfileServiceImpl(
-    private val studentRepository: StudentRepository,
-    private val teacherRepository: TeacherRepository
+    private val accountTemplate: AccountTemplate
 ) : AccountProfileService {
-    override fun getProfile(id: Long): AccountDto =
-        studentRepository.findById(id).orElse(null)?.toDto()
-            ?: teacherRepository.findById(id).orElse(null)?.toDto()
-            ?: throw UnknownAccountException(id)
+    override fun getProfile(id: Long): AccountDto = accountTemplate.doAndGetWithAccountById(id, entityToDtoTeacher(), entityToDtoStudent())
 }
+fun entityToDtoTeacher(): (TeacherEntity) -> AccountDto = TeacherEntity::toDto
+fun entityToDtoStudent(): (StudentEntity) -> AccountDto = StudentEntity::toDto
