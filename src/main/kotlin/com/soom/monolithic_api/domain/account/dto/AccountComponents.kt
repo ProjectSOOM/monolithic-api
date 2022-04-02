@@ -22,7 +22,7 @@ data class AccountAuthDto(
 ): AccountComponents
 //계정 메타정보
 data class AccountMetaDto(
-    val id: String,
+    val id: Long,
     val type: AccountType,
     val createdAt: LocalDateTime
 ): AccountComponents
