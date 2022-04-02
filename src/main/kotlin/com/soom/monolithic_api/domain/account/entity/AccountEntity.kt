@@ -21,10 +21,10 @@ abstract class AccountEntity(
     @Enumerated(EnumType.STRING)
     val role: RoleType,
     @Enumerated(EnumType.STRING)
-    val school: SchoolType
+    val school: SchoolType,
+    val profileImage : String
 ) {
     abstract fun toDto(): AccountDto
 
     val createdAt = LocalDateTime.now()
-    val profileImage : String? = null
 }

@@ -11,11 +11,14 @@ import javax.persistence.Enumerated
 @Entity
 @DiscriminatorValue("TEACHER")
 class TeacherEntity(
-        id: Long, name: String, gender: GenderType, birth: LocalDate, email: String, encodedPassword: String, role: RoleType, school: SchoolType,
+        id: Long, name: String, gender: GenderType, birth: LocalDate, email: String, encodedPassword: String, role: RoleType, school: SchoolType, profileImage: String,
         val major: String,
         @Enumerated(EnumType.STRING)
         val teacherType: TeacherType
-) : AccountEntity(id, email, name, gender, birth, encodedPassword, role, school) {
+) : AccountEntity(id, email, name, gender, birth, encodedPassword, role, school, profileImage) {
+        companion object {
+                fun entityToDtoTeacher(): (TeacherEntity) -> AccountDto = TeacherEntity::toDto
+        }
         override fun toDto(): TeacherDto = TeacherDto(
                 AccountBasicDto(name, gender, birth, profileImage, school),
                 AccountAuthDto(email, encodedPassword),

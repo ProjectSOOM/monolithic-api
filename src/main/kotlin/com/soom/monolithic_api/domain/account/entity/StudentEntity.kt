@@ -9,11 +9,14 @@ import javax.persistence.Entity
 @Entity
 @DiscriminatorValue("STUDENT")
 class StudentEntity(
-    id: Long, name: String, gender: GenderType, birth: LocalDate, email: String, encodedPassword: String, role: RoleType, school: SchoolType,
+    id: Long, name: String, gender: GenderType, birth: LocalDate, email: String, encodedPassword: String, role: RoleType, school: SchoolType, profileImage: String,
     val classNumber: Int,
     val admissionAt: LocalDate,
     val department: DepartmentType
-) : AccountEntity(id, email, name, gender, birth, encodedPassword, role, school) {
+) : AccountEntity(id, email, name, gender, birth, encodedPassword, role, school, profileImage) {
+    companion object {
+        fun entityToDtoStudent(): (StudentEntity) -> AccountDto = StudentEntity::toDto
+    }
     override fun toDto(): AccountDto = StudentDto(
         AccountBasicDto(name, gender, birth, profileImage, school),
         AccountAuthDto(email, encodedPassword),
