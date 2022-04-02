@@ -28,12 +28,12 @@ data class AccountMetaDto(
 ): AccountComponents
 
 //교사 추가정보
-data class TeacherDto(
+data class TeacherAdditionalDto(
     val major: String,
     val teacherType: TeacherType
 ): AccountComponents
 //학생 추가정보
-data class StudentDto(
+data class StudentAdditionalDto(
     val classNumber: Int,
     val admissionAt: LocalDate,
     val department: DepartmentType
