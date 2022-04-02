@@ -1,9 +1,7 @@
 package com.soom.monolithic_api.domain.account.entity
 
-import com.soom.monolithic_api.domain.account.type.Gender
-import com.soom.monolithic_api.domain.account.type.RoleType
-import com.soom.monolithic_api.domain.account.type.SchoolType
-import com.soom.monolithic_api.domain.account.type.TeacherType
+import com.soom.monolithic_api.domain.account.dto.*
+import com.soom.monolithic_api.domain.account.type.*
 import java.time.LocalDate
 import javax.persistence.DiscriminatorValue
 import javax.persistence.Entity
@@ -17,4 +15,11 @@ class TeacherEntity(
         val major: String,
         @Enumerated(EnumType.STRING)
         val teacherType: TeacherType
-) : AccountEntity(id, email, name, gender, birth, encodedPassword, role, school)
+) : AccountEntity(id, email, name, gender, birth, encodedPassword, role, school) {
+        override fun toDto(): TeacherDto = TeacherDto(
+                AccountBasicDto(name, gender, birth, profileImage, school),
+                AccountAuthDto(email, encodedPassword),
+                AccountMetaDto(id, AccountType.교사, createdAt),
+                TeacherAdditionalDto(major, teacherType)
+        )
+}

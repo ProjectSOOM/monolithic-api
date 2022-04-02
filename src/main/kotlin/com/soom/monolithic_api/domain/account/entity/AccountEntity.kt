@@ -1,5 +1,6 @@
 package com.soom.monolithic_api.domain.account.entity
 
+import com.soom.monolithic_api.domain.account.dto.AccountDto
 import com.soom.monolithic_api.domain.account.type.Gender
 import com.soom.monolithic_api.domain.account.type.RoleType
 import com.soom.monolithic_api.domain.account.type.SchoolType
@@ -22,6 +23,8 @@ abstract class AccountEntity(
     @Enumerated(EnumType.STRING)
     val school: SchoolType
 ) {
+    abstract fun toDto(): AccountDto
+
     val createdAt = LocalDateTime.now()
     val profileImage : String? = null
 }
