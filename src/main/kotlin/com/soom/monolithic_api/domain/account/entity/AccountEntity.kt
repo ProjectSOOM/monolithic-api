@@ -1,7 +1,7 @@
 package com.soom.monolithic_api.domain.account.entity
 
 import com.soom.monolithic_api.domain.account.dto.AccountDto
-import com.soom.monolithic_api.domain.account.type.Gender
+import com.soom.monolithic_api.domain.account.type.GenderType
 import com.soom.monolithic_api.domain.account.type.RoleType
 import com.soom.monolithic_api.domain.account.type.SchoolType
 import java.time.LocalDate
@@ -15,7 +15,7 @@ abstract class AccountEntity(
     val id: Long,
     val email: String,
     val name: String,
-    val gender: Gender,
+    val gender: GenderType,
     val birth: LocalDate,
     val encodedPassword: String,
     @Enumerated(EnumType.STRING)

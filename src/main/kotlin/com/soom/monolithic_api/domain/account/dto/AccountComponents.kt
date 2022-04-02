@@ -10,7 +10,7 @@ sealed interface AccountComponents
 //계정 기본정보
 data class AccountBasicDto(
     val name: String,
-    val gender: Gender,
+    val gender: GenderType,
     val birth: LocalDate,
     val profileImage: String?,
     val school: SchoolType

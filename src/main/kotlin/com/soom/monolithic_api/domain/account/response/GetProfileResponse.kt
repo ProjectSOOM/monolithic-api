@@ -16,7 +16,7 @@ sealed class GetProfileResponse (
     val createdAt: LocalDateTime,
     val email: String,
     val name: String,
-    val gender: Gender
+    val gender: GenderType
 ) : ProfileResponse(id, type) {
     companion object {
         fun of(dto: AccountDto): GetProfileResponse =
@@ -28,7 +28,7 @@ sealed class GetProfileResponse (
 }
 //교사 프로필 조회 정보를 담은 응답
 class GetTeacherProfileResponse (
-    id: Long, profileImage: String?, school: SchoolType, birth: LocalDate, createdAt: LocalDateTime, email: String, name: String, gender: Gender,
+    id: Long, profileImage: String?, school: SchoolType, birth: LocalDate, createdAt: LocalDateTime, email: String, name: String, gender: GenderType,
     val major: String,
     val teacherType: TeacherType
 ) : GetProfileResponse(id, AccountType.교사, profileImage, school, birth, createdAt, email, name, gender) {
@@ -42,7 +42,7 @@ class GetTeacherProfileResponse (
 }
 //학생 프로필 조회 정보를 담은 응답
 class GetStudentProfileResponse (
-    id: Long, profileImage: String?, school: SchoolType, birth: LocalDate, createdAt: LocalDateTime, email: String, name: String, gender: Gender,
+    id: Long, profileImage: String?, school: SchoolType, birth: LocalDate, createdAt: LocalDateTime, email: String, name: String, gender: GenderType,
     val classNumber: Int, //학번
     val admissionAt: LocalDate,
     val department: DepartmentType

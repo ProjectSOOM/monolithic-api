@@ -9,7 +9,7 @@ import javax.persistence.Entity
 @Entity
 @DiscriminatorValue("STUDENT")
 class StudentEntity(
-    id: Long, name: String, gender: Gender, birth: LocalDate, email: String, encodedPassword: String, role: RoleType, school: SchoolType,
+    id: Long, name: String, gender: GenderType, birth: LocalDate, email: String, encodedPassword: String, role: RoleType, school: SchoolType,
     val classNumber: Int,
     val admissionAt: LocalDate,
     val department: DepartmentType
