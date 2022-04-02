@@ -1,6 +1,6 @@
 package com.soom.monolithic_api.domain.account.dto
 
-sealed class AccountProfileDto(
+sealed class AccountDto(
     val basic: AccountBasicDto,
     val auth: AccountAuthDto,
     val meta: AccountMetaDto
@@ -9,8 +9,8 @@ sealed class AccountProfileDto(
 class TeacherProfileDto(
     basic: AccountBasicDto, auth: AccountAuthDto, meta: AccountMetaDto,
     val teacher: TeacherDto
-): AccountProfileDto(basic, auth, meta)
+): AccountDto(basic, auth, meta)
 class StudentProfileDto(
     basic: AccountBasicDto, auth: AccountAuthDto, meta: AccountMetaDto,
     val student: StudentDto
-): AccountProfileDto(basic, auth, meta)
+): AccountDto(basic, auth, meta)

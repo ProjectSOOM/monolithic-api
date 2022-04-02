@@ -1,6 +1,6 @@
 package com.soom.monolithic_api.domain.account.controller
 
-import com.soom.monolithic_api.domain.account.dto.AccountProfileDto
+import com.soom.monolithic_api.domain.account.dto.AccountDto
 import com.soom.monolithic_api.domain.account.response.*
 import com.soom.monolithic_api.domain.account.service.AccountProfileImageService
 import com.soom.monolithic_api.domain.account.service.AccountProfileService
@@ -18,7 +18,7 @@ class ProfileController (
     //계정 ID로 프로필 조회
     @GetMapping("/{id}")
     fun getProfileByAccountId(@PathVariable id: String): ResponseEntity<out GetProfileResponse> {
-        val dto: AccountProfileDto = profileService.getProfile(id)
+        val dto: AccountDto = profileService.getProfile(id)
         return when(val response = GetProfileResponse.of(dto)) {
             is GetTeacherProfileResponse -> ResponseEntity.ok(response)
             is GetStudentProfileResponse -> ResponseEntity.ok(response)
@@ -27,7 +27,7 @@ class ProfileController (
     //로그인된 계정의 프로필 조회
     @GetMapping
     fun getProfileByLoginAccount(): ResponseEntity<out GetProfileResponse> {
-        //TODO
+        loginAccountService.getLoginAccount()
         return ResponseEntity.ok().build()
     }
 

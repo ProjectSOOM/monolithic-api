@@ -1,6 +1,6 @@
 package com.soom.monolithic_api.domain.account.response
 
-import com.soom.monolithic_api.domain.account.dto.AccountProfileDto
+import com.soom.monolithic_api.domain.account.dto.AccountDto
 import com.soom.monolithic_api.domain.account.dto.StudentProfileDto
 import com.soom.monolithic_api.domain.account.dto.TeacherProfileDto
 import com.soom.monolithic_api.domain.account.type.*
@@ -19,7 +19,7 @@ sealed class GetProfileResponse (
     val gender: Gender
 ) : ProfileResponse(id, type) {
     companion object {
-        fun of(dto: AccountProfileDto): GetProfileResponse =
+        fun of(dto: AccountDto): GetProfileResponse =
             when(dto) {
                 is TeacherProfileDto -> GetTeacherProfileResponse.of(dto)
                 is StudentProfileDto -> GetStudentProfileResponse.of(dto)
