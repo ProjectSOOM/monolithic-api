@@ -1,8 +1,8 @@
 package com.soom.monolithic_api.domain.account.response
 
 import com.soom.monolithic_api.domain.account.dto.AccountDto
-import com.soom.monolithic_api.domain.account.dto.StudentProfileDto
-import com.soom.monolithic_api.domain.account.dto.TeacherProfileDto
+import com.soom.monolithic_api.domain.account.dto.StudentDto
+import com.soom.monolithic_api.domain.account.dto.TeacherDto
 import com.soom.monolithic_api.domain.account.type.*
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -21,8 +21,8 @@ sealed class GetProfileResponse (
     companion object {
         fun of(dto: AccountDto): GetProfileResponse =
             when(dto) {
-                is TeacherProfileDto -> GetTeacherProfileResponse.of(dto)
-                is StudentProfileDto -> GetStudentProfileResponse.of(dto)
+                is TeacherDto -> GetTeacherProfileResponse.of(dto)
+                is StudentDto -> GetStudentProfileResponse.of(dto)
             }
     }
 }
@@ -33,7 +33,7 @@ class GetTeacherProfileResponse (
     val teacherType: TeacherType
 ) : GetProfileResponse(id, AccountType.교사, profileImage, school, birth, createdAt, email, name, gender) {
     companion object {
-        fun of(dto: TeacherProfileDto): GetTeacherProfileResponse = GetTeacherProfileResponse(
+        fun of(dto: TeacherDto): GetTeacherProfileResponse = GetTeacherProfileResponse(
             dto.meta.id, dto.basic.profileImage, dto.basic.school, dto.basic.birth,
             dto.meta.createdAt, dto.auth.email, dto.basic.name, dto.basic.gender,
             dto.teacher.major, dto.teacher.teacherType
@@ -48,7 +48,7 @@ class GetStudentProfileResponse (
     val department: DepartmentType
 ) : GetProfileResponse(id, AccountType.학생, profileImage, school, birth, createdAt, email, name, gender) {
     companion object {
-        fun of(dto: StudentProfileDto): GetStudentProfileResponse = GetStudentProfileResponse(
+        fun of(dto: StudentDto): GetStudentProfileResponse = GetStudentProfileResponse(
             dto.meta.id, dto.basic.profileImage, dto.basic.school, dto.basic.birth,
             dto.meta.createdAt, dto.auth.email, dto.basic.name, dto.basic.gender,
             dto.student.classNumber, dto.student.admissionAt, dto.student.department
