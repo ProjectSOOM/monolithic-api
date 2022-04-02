@@ -5,4 +5,5 @@ import org.springframework.web.multipart.MultipartFile
 
 interface AccountProfileImageService {
     fun save(id: Long, image: MultipartFile): ProfileImageDto
+    fun delete(id: Long)
 }

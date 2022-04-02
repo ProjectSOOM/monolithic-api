@@ -26,7 +26,7 @@ class ProfileController (
     //로그인된 계정의 프로필 조회
     @GetMapping
     fun getProfileByLoginAccount(): ResponseEntity<out GetProfileResponse> {
-        val id: Long = loginAccountService.getLoginAccount().meta.id
+        val id: Long = getLoginAccountId()
         val dto: AccountDto = profileService.getProfile(id)
         return getResponseEntityByAccountDto(dto)
     }
@@ -51,14 +51,17 @@ class ProfileController (
     }
 
     private fun saveProfileAndGetDto(image: MultipartFile): ProfileImageDto {
-        val id: Long = loginAccountService.getLoginAccount().meta.id
+        val id: Long = getLoginAccountId()
         return profileImageService.save(id, image)
     }
 
     //로그인된 계정의 프로필 사진 삭제
     @DeleteMapping("/image")
     fun removeProfileImageAtLoginAccount(): ResponseEntity<Void> {
-        //TODO
+        val id: Long = getLoginAccountId()
+        profileImageService.delete(id)
         return ResponseEntity.noContent().build()
     }
+
+    private fun getLoginAccountId(): Long = loginAccountService.getLoginAccount().meta.id
 }
