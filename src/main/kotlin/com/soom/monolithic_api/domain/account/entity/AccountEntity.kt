@@ -10,7 +10,7 @@ import javax.persistence.*
 
 @Entity
 @DiscriminatorColumn(name = "DTYPE")
-abstract class AccountEntity(
+sealed class AccountEntity(
     @Id
     val id: Long,
     val email: String,
@@ -26,5 +26,5 @@ abstract class AccountEntity(
 ) {
     abstract fun toDto(): AccountDto
 
-    val createdAt = LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now()
 }

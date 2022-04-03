@@ -10,8 +10,19 @@ import javax.persistence.Enumerated
 
 @Entity
 @DiscriminatorValue("TEACHER")
-class TeacherEntity(
-        id: Long, name: String, gender: GenderType, birth: LocalDate, email: String, encodedPassword: String, role: RoleType, school: SchoolType, profileImage: String,
+data class TeacherEntity(
+        override val id: Long,
+        override val name: String,
+        @Enumerated(EnumType.STRING)
+        override val gender: GenderType,
+        override val birth: LocalDate,
+        override val email: String,
+        override val encodedPassword: String,
+        @Enumerated(EnumType.STRING)
+        override val role: RoleType,
+        @Enumerated(EnumType.STRING)
+        override val school: SchoolType,
+        override val profileImage: String,
         val major: String,
         @Enumerated(EnumType.STRING)
         val teacherType: TeacherType

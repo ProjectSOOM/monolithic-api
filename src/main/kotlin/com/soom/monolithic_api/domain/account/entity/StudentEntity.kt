@@ -5,13 +5,27 @@ import com.soom.monolithic_api.domain.account.type.*
 import java.time.LocalDate
 import javax.persistence.DiscriminatorValue
 import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 
 @Entity
 @DiscriminatorValue("STUDENT")
-class StudentEntity(
-    id: Long, name: String, gender: GenderType, birth: LocalDate, email: String, encodedPassword: String, role: RoleType, school: SchoolType, profileImage: String,
+data class StudentEntity(
+    override val id: Long,
+    override val name: String,
+    @Enumerated(EnumType.STRING)
+    override val gender: GenderType,
+    override val birth: LocalDate,
+    override val email: String,
+    override val encodedPassword: String,
+    @Enumerated(EnumType.STRING)
+    override val role: RoleType,
+    @Enumerated(EnumType.STRING)
+    override val school: SchoolType,
+    override val profileImage: String,
     val classNumber: Int,
     val admissionAt: LocalDate,
+    @Enumerated(EnumType.STRING)
     val department: DepartmentType
 ) : AccountEntity(id, email, name, gender, birth, encodedPassword, role, school, profileImage) {
     companion object {
