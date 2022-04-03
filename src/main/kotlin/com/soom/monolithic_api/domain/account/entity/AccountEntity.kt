@@ -10,6 +10,7 @@ import javax.persistence.*
 
 @Entity
 @DiscriminatorColumn(name = "DTYPE")
+@Inheritance(strategy = InheritanceType.JOINED)
 sealed class AccountEntity(
     @Id
     val id: Long,

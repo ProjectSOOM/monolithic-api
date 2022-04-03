@@ -21,20 +21,14 @@ class ProfileController (
     @GetMapping("/{id}")
     fun getProfileByAccountId(@PathVariable id: Long): ResponseEntity<out GetProfileResponse> {
         val dto: AccountDto = profileService.getProfile(id)
-        return getResponseEntityByAccountDto(dto)
+        return ResponseEntity.ok(GetProfileResponse.of(dto))
     }
     //로그인된 계정의 프로필 조회
     @GetMapping
     fun getProfileByLoginAccount(): ResponseEntity<out GetProfileResponse> {
         val id: Long = getLoginAccountId()
         val dto: AccountDto = profileService.getProfile(id)
-        return getResponseEntityByAccountDto(dto)
-    }
-
-    private fun getResponseEntityByAccountDto(dto: AccountDto): ResponseEntity<out GetProfileResponse>
-    = when(val response = GetProfileResponse.of(dto)) {
-        is GetTeacherProfileResponse -> ResponseEntity.ok(response)
-        is GetStudentProfileResponse -> ResponseEntity.ok(response)
+        return ResponseEntity.ok(GetProfileResponse.of(dto))
     }
 
     //로그인된 계정의 프로필 사진 등록
