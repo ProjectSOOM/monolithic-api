@@ -20,29 +20,27 @@ class AccountProfileImageServiceImpl(
     private val teacherRepository: TeacherRepository
 ): AccountProfileImageService {
     override fun save(id: Long, image: MultipartFile): ProfileImageDto {
-        val imageId = awsS3Service.upload(image, S3DataType.PROFILE_IMAGE)
+        val imageId = awsS3Service.upload(image, S3DataType.PROFILE_IMAGE.pathFormatter.invoke(arrayOf(id)))
         val userId: Long = accountTemplate.doAndGetWithAccountById(id, changeTeacherProfile(imageId), changeStudentProfile(imageId)).meta.id
         return ProfileImageDto(userId, imageId)
     }
 
     private fun changeStudentProfile(imageId: String): (StudentEntity) -> AccountDto {
-        return {entity ->
+        return { entity ->
             val new = StudentEntity(entity.id, entity.name, entity.gender, entity.birth,
                 entity.email, entity.encodedPassword, entity.role, entity.school, imageId,
                 entity.classNumber, entity.admissionAt, entity.department)
             studentRepository.save(new)
-            new.toDto()
-        }
+            new.toDto() }
     }
 
     private fun changeTeacherProfile(imageId: String): (TeacherEntity) -> AccountDto {
-        return {entity ->
+        return { entity ->
             val new = TeacherEntity(entity.id, entity.name, entity.gender, entity.birth,
                 entity.email, entity.encodedPassword, entity.role, entity.school, imageId,
                 entity.major, entity.teacherType)
             teacherRepository.save(new)
-            new.toDto()
-        }
+            new.toDto() }
     }
 
     override fun delete(id: Long) {

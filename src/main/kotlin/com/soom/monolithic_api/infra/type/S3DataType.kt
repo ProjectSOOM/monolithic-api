@@ -1,7 +1,7 @@
 package com.soom.monolithic_api.infra.type
 
 enum class S3DataType(
-    val dirPath: (Array<Any?>) -> String
+    val pathFormatter: (Array<Any?>) -> String
 ) {
     PROFILE_IMAGE(format("user/profile/%s"));
 }
