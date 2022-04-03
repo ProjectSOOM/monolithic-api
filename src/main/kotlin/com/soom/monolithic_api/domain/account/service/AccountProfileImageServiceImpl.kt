@@ -24,9 +24,11 @@ class AccountProfileImageServiceImpl(
         return ProfileImageDto(userId, imageId)
     }
 
-    override fun delete(id: Long): AccountDto = accountTemplate.doWithAccountById(id, deleteAccountProfile())
+    override fun delete(id: Long) = accountTemplate.doWithAccountById(id, deleteAccountProfile())
 
-    private fun deleteAccountProfile(): (AccountEntity) -> AccountDto = changeAccountProfile("")
+    private fun deleteAccountProfile(): (AccountEntity) -> Unit = {entity ->
+        run { changeAccountProfile("").invoke(entity) }
+    }
 
     private fun changeAccountProfile(imageId: String): (AccountEntity) -> AccountDto = { entity ->
         when(entity) {
