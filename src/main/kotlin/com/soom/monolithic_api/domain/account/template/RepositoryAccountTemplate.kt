@@ -1,5 +1,6 @@
 package com.soom.monolithic_api.domain.account.template
 
+import com.soom.monolithic_api.domain.account.entity.AccountEntity
 import com.soom.monolithic_api.domain.account.entity.StudentEntity
 import com.soom.monolithic_api.domain.account.entity.TeacherEntity
 import com.soom.monolithic_api.domain.account.exception.UnknownAccountException
@@ -12,6 +13,12 @@ class RepositoryAccountTemplate(
     private val studentRepository: StudentRepository,
     private val teacherRepository: TeacherRepository
 ): AccountTemplate {
+    override fun <T> doWithAccountById(id: Long, doWithAccount: (AccountEntity) -> T): T
+            = doAndGetWithAccountById(id, doWithAccount, doWithAccount)
+
+    override fun <T> doAndGetWithAccountById(id: Long, doWithAccount:  (AccountEntity) -> T): T
+            = doAndGetWithAccountById(id, doWithAccount, doWithAccount)
+
     override fun doWithAccountById(
         id: Long,
         doWithTeacher: (TeacherEntity) -> Unit,
@@ -23,6 +30,6 @@ class RepositoryAccountTemplate(
         doWithTeacher:  (TeacherEntity) -> T,
         doWithStudent: (StudentEntity) -> T
     ): T = studentRepository.findById(id).orElse(null)?.run(doWithStudent)
-            ?: teacherRepository.findById(id).orElse(null)?.run(doWithTeacher)
-            ?: throw UnknownAccountException(id)
+        ?: teacherRepository.findById(id).orElse(null)?.run(doWithTeacher)
+        ?: throw UnknownAccountException(id)
 }

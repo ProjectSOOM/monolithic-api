@@ -1,9 +1,20 @@
 package com.soom.monolithic_api.domain.account.template
 
+import com.soom.monolithic_api.domain.account.entity.AccountEntity
 import com.soom.monolithic_api.domain.account.entity.StudentEntity
 import com.soom.monolithic_api.domain.account.entity.TeacherEntity
 
 interface AccountTemplate {
+    fun <T> doWithAccountById(
+        id: Long,
+        doWithAccount:  (AccountEntity) -> T
+    ): T
+
+    fun <T> doAndGetWithAccountById(
+        id: Long,
+        doWithAccount:  (AccountEntity) -> T
+    ): T
+
     fun doWithAccountById(
         id: Long,
         doWithTeacher: (TeacherEntity) -> Unit, doWithStudent: (StudentEntity) -> Unit
