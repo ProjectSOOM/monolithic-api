@@ -21,42 +21,38 @@ class ProfileController (
         ) {
     //계정 ID로 프로필 조회
     @GetMapping("/{id}")
-    fun getProfileByAccountId(@PathVariable id: Long): ResponseEntity<out GetProfileResponse> {
-        val dto: AccountDto = profileService.getAccount(id)
-        return ResponseEntity.ok(GetProfileResponse.of(dto))
-    }
+    fun getProfileByAccountId(@PathVariable id: Long): ResponseEntity<out GetProfileResponse> =
+        profileService.getAccount(id)
+        .let { GetProfileResponse.of(it) }
+        .let { ResponseEntity.ok(it) }
+
     //로그인된 계정의 프로필 조회
     @GetMapping
-    fun getProfileByLoginAccount(): ResponseEntity<out GetProfileResponse> {
-        val id: Long = getLoginAccountId()
-        val dto: AccountDto = profileService.getAccount(id)
-        return ResponseEntity.ok(GetProfileResponse.of(dto))
-    }
+    fun getProfileByLoginAccount(): ResponseEntity<out GetProfileResponse> =
+        getLoginAccountId()
+        .let{profileService.getAccount(it) }
+        .let { GetProfileResponse.of(it) }
+        .let { ResponseEntity.ok(it) }
 
     //로그인된 계정의 프로필 사진 등록
     @PostMapping("/image")
-    fun addProfileImageAtLoginAccount(@ModelAttribute image: MultipartFile): ResponseEntity<AddProfileImageResponse> {
-        val dto: ProfileImageDto = saveProfileAndGetDto(image)
-        return ResponseEntity.ok(AddProfileImageResponse.of(dto))
-    }
+    fun addProfileImageAtLoginAccount(@ModelAttribute image: MultipartFile): ResponseEntity<AddProfileImageResponse> =
+        saveProfileAndGetDto(getLoginAccountId(), image)
+            .let {AddProfileImageResponse.of(it) }
+            .let { ResponseEntity.ok(it) }
     //로그인된 게정의 프로필 사진 수정
     @PutMapping("/image")
-    fun editProfileImageAtLoginAccount(@ModelAttribute image: MultipartFile): ResponseEntity<EditProfileImageResponse> {
-        val dto: ProfileImageDto = saveProfileAndGetDto(image)
-        return ResponseEntity.ok(EditProfileImageResponse.of(dto))
-    }
+    fun editProfileImageAtLoginAccount(@ModelAttribute image: MultipartFile): ResponseEntity<EditProfileImageResponse> =
+        saveProfileAndGetDto(getLoginAccountId(), image)
+            .let{ EditProfileImageResponse.of(it) }
+            .let { ResponseEntity.ok(it) }
     //로그인된 계정의 프로필 사진 삭제
     @DeleteMapping("/image")
-    fun removeProfileImageAtLoginAccount(): ResponseEntity<Void> {
-        val id: Long = getLoginAccountId()
-        profileImageService.delete(id)
-        return ResponseEntity.noContent().build()
-    }
+    fun removeProfileImageAtLoginAccount(): ResponseEntity<Void> =
+        getLoginAccountId()
+            .let{ profileImageService.delete(it) }
+            .let { ResponseEntity.noContent().build() }
 
-    private fun saveProfileAndGetDto(image: MultipartFile): ProfileImageDto {
-        val id: Long = getLoginAccountId()
-        return profileImageService.save(id, image)
-    }
-
+    private fun saveProfileAndGetDto(id: Long, image: MultipartFile): ProfileImageDto  = profileImageService.save(id, image)
     private fun getLoginAccountId(): Long = loginAccountService.getLoginAccount().meta.id
 }
