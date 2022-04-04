@@ -18,25 +18,19 @@ class AccountProfileImageServiceImpl(
     private val awsS3Service: AwsS3Service,
     private val accountRepository: AccountRepository
 ): AccountProfileImageService {
-    override fun save(id: Long, image: MultipartFile): ProfileImageDto {
-        val imageId = awsS3Service.upload(image, S3DataType.PROFILE_IMAGE.pathFormatter.invoke(arrayOf(id)))
-        val userId: Long = accountTemplate.doAndGetWithAccountById(id, changeAccountProfile(imageId), changeAccountProfile(imageId)).meta.id
-        return ProfileImageDto(userId, imageId)
-    }
+    override fun save(id: Long, image: MultipartFile): ProfileImageDto =
+        awsS3Service.upload(image, S3DataType.PROFILE_IMAGE.pathFormatter.invoke(arrayOf(id)))
+        .let { it to accountTemplate.doAndGetWithAccountById(id, changeAccountProfile(it), changeAccountProfile(it)).meta.id }
+        .run{ ProfileImageDto(second, first) }
 
     override fun delete(id: Long) = accountTemplate.doWithAccountById(id, deleteAccountProfile())
 
-    private fun deleteAccountProfile(): (AccountEntity) -> Unit = { entity ->
-        run { changeAccountProfile("").invoke(entity) }
-    }
-
+    private fun deleteAccountProfile(): (AccountEntity) -> Unit = { entity -> run { changeAccountProfile("").invoke(entity) } }
     private fun changeAccountProfile(imageId: String): (AccountEntity) -> AccountDto = { entity ->
         when(entity) {
             is StudentEntity -> entity.copy(profileImage = imageId)
             is TeacherEntity -> entity.copy(profileImage = imageId)
-        }.run{
-            accountRepository.save(this)
-            this.toDto()
-        }
+        }.apply{ accountRepository.save(this) }
+            .run (AccountEntity::toDto)
     }
 }

@@ -1,6 +1,5 @@
 package com.soom.monolithic_api.domain.account.profile.controller
 
-import com.soom.monolithic_api.domain.account.common.data.dto.AccountDto
 import com.soom.monolithic_api.domain.account.profile.dto.ProfileImageDto
 import com.soom.monolithic_api.domain.account.profile.response.AddProfileImageResponse
 import com.soom.monolithic_api.domain.account.profile.response.EditProfileImageResponse
@@ -17,15 +16,13 @@ import org.springframework.web.multipart.MultipartFile
 class ProfileController (
     private val profileService: AccountService,
     private val profileImageService: AccountProfileImageService,
-    private val loginAccountService: LoginAccountService
-        ) {
+    private val loginAccountService: LoginAccountService) {
     //계정 ID로 프로필 조회
     @GetMapping("/{id}")
     fun getProfileByAccountId(@PathVariable id: Long): ResponseEntity<out GetProfileResponse> =
         profileService.getAccount(id)
         .let { GetProfileResponse.of(it) }
         .let { ResponseEntity.ok(it) }
-
     //로그인된 계정의 프로필 조회
     @GetMapping
     fun getProfileByLoginAccount(): ResponseEntity<out GetProfileResponse> =

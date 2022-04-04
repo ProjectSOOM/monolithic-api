@@ -32,11 +32,13 @@ class SignupController(
 
     private fun requestToDto(request: StudentSignupRequest): StudentSignupDto = (request to emailTokenDecodeService.decode(request.emailToken))
         .run {
-            (SigninCommonAuthDto(second, first.password) to SigninCommonProfileDto(first.name, first.gender, first.birth) to SigninStudentAdditionalDto(first.classNumber, first.admissionAt, first.department))
+            (SigninCommonAuthDto(second, first.password) to SigninCommonProfileDto(first.name, first.gender, first.birth)
+                    to SigninStudentAdditionalDto(first.classNumber, first.admissionAt, first.department))
         }.run { StudentSignupDto(first.first, first.second, second) }
 
     private fun requestToDto(request: TeacherSignupRequest): TeacherSignupDto = (request to emailTokenDecodeService.decode(request.emailToken))
         .run {
-            (SigninCommonAuthDto(second, first.password) to SigninCommonProfileDto(first.name, first.gender, first.birth) to SigninTeacherAdditionalDto(first.major, first.teacherType))
+            (SigninCommonAuthDto(second, first.password) to SigninCommonProfileDto(first.name, first.gender, first.birth)
+                    to SigninTeacherAdditionalDto(first.major, first.teacherType))
         }.run { TeacherSignupDto(first.first, first.second, second) }
 }
