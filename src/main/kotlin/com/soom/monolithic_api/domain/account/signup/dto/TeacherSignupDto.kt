@@ -1,7 +1,7 @@
 package com.soom.monolithic_api.domain.account.signup.dto
 
 data class TeacherSignupDto (
-    val auth: SigninCommonAuthDto,
-    val profile: SigninCommonProfileDto,
+    override val auth: SigninCommonAuthDto,
+    override val profile: SigninCommonProfileDto,
     val teacher: SigninTeacherAdditionalDto
-        )
+        ): SignupDto(auth, profile)
