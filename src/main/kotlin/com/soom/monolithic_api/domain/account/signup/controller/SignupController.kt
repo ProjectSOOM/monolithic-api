@@ -2,6 +2,7 @@ package com.soom.monolithic_api.domain.account.signup.controller
 
 import com.soom.monolithic_api.domain.account.common.data.dto.AccountDto
 import com.soom.monolithic_api.domain.account.signup.dto.*
+import com.soom.monolithic_api.domain.account.signup.request.SignupRequest
 import com.soom.monolithic_api.domain.account.signup.request.StudentSignupRequest
 import com.soom.monolithic_api.domain.account.signup.request.TeacherSignupRequest
 import com.soom.monolithic_api.domain.account.signup.service.EmailTokenDecodeService
@@ -17,28 +18,34 @@ import org.springframework.web.bind.annotation.RestController
 class SignupController(
     val signupService: SignupService,
     val emailTokenDecodeService: EmailTokenDecodeService
-) {
+    ) {
     //학생 회원가입
     @PostMapping("/student")
     fun signupStudent(@RequestBody request: StudentSignupRequest): ResponseEntity<AccountDto> = requestToDto(request)
             .let { signupService.signupStudent(it) }
             .let { ResponseEntity.ok(it) }
-
     //교사 회원가입
     @PostMapping("/teacher")
     fun signupTeacher(@RequestBody request: TeacherSignupRequest): ResponseEntity<AccountDto> = requestToDto(request)
         .let { signupService.signupTeacher(it) }
         .let { ResponseEntity.ok(it) }
 
-    private fun requestToDto(request: StudentSignupRequest): StudentSignupDto = (request to emailTokenDecodeService.decode(request.emailToken))
-        .run {
-            (SigninCommonAuthDto(second, first.password) to SigninCommonProfileDto(first.name, first.gender, first.birth)
-                    to SigninStudentAdditionalDto(first.classNumber, first.admissionAt, first.department))
-        }.run { StudentSignupDto(first.first, first.second, second) }
-
-    private fun requestToDto(request: TeacherSignupRequest): TeacherSignupDto = (request to emailTokenDecodeService.decode(request.emailToken))
-        .run {
-            (SigninCommonAuthDto(second, first.password) to SigninCommonProfileDto(first.name, first.gender, first.birth)
-                    to SigninTeacherAdditionalDto(first.major, first.teacherType))
-        }.run { TeacherSignupDto(first.first, first.second, second) }
+    //학생 회원가입 요청을 DTO 로 치환한다.
+    private fun requestToDto(request: StudentSignupRequest): StudentSignupDto = requestToDtoTemplate(
+        {pair: Pair<StudentSignupRequest, String> -> SigninStudentAdditionalDto(pair.first.classNumber, pair.first.admissionAt, pair.first.department)},
+        {auth, profile, student: SigninStudentAdditionalDto -> StudentSignupDto(auth, profile, student)}
+    ).invoke(request)
+    //교사 회원가입 요청을 DTO 로 치환한다.
+    private fun requestToDto(request: TeacherSignupRequest): TeacherSignupDto = requestToDtoTemplate(
+        {pair: Pair<TeacherSignupRequest, String> -> SigninTeacherAdditionalDto(pair.first.major, pair.first.teacherType)},
+        {auth, profile, teacher: SigninTeacherAdditionalDto -> TeacherSignupDto(auth, profile, teacher)}
+    ).invoke(request)
+    //회원가입 요청을 DTO 로 치환하는 템플릿 함수
+    private fun <T: SignupRequest, T2: SignupAdditionalComponents, R: SignupDto> requestToDtoTemplate(
+        makeAdditionalDto: (Pair<T, String>) -> T2,
+        makeDto: (SigninCommonAuthDto, SigninCommonProfileDto, T2) -> R): (T) -> R = {
+            request -> (request to emailTokenDecodeService.decode(request.emailToken))
+                .run { (SigninCommonAuthDto(second, first.password) to SigninCommonProfileDto(first.name, first.gender, first.birth) to makeAdditionalDto.invoke(this)) }
+                .run { makeDto.invoke(first.first, first.second, second) }
+        }
 }

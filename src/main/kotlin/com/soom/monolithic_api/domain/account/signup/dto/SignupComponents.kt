@@ -6,6 +6,7 @@ import com.soom.monolithic_api.domain.account.common.data.type.TeacherType
 import java.time.LocalDate
 
 interface SignupComponents
+interface SignupAdditionalComponents: SignupComponents
 
 data class SigninCommonAuthDto(
     val email: String,
@@ -21,10 +22,10 @@ data class SigninCommonProfileDto(
 data class SigninTeacherAdditionalDto(
     val major: String,
     val teacherType: TeacherType
-): SignupComponents
+): SignupAdditionalComponents
 
 data class SigninStudentAdditionalDto(
     val classNumber: Int,
     val admissionAt: LocalDate,
     val department: DepartmentType
-): SignupComponents
+): SignupAdditionalComponents
