@@ -1,8 +1,8 @@
 package com.soom.monolithic_api.domain.account.auth.controller
 
-import com.soom.monolithic_api.domain.account.auth.request.EmailRequest
-import com.soom.monolithic_api.domain.account.auth.response.EmailTokenResponse
-import com.soom.monolithic_api.domain.account.auth.response.TeacherTokenResponse
+import com.soom.monolithic_api.domain.account.auth.data.request.EmailRequest
+import com.soom.monolithic_api.domain.account.auth.data.response.EmailTokenResponse
+import com.soom.monolithic_api.domain.account.auth.data.response.TeacherTokenResponse
 import com.soom.monolithic_api.domain.account.auth.service.EmailAuthService
 import com.soom.monolithic_api.domain.account.auth.service.EmailTokenService
 import com.soom.monolithic_api.domain.account.auth.service.TeacherAuthService
