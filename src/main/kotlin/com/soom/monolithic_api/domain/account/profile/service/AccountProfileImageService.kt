@@ -1,6 +1,6 @@
 package com.soom.monolithic_api.domain.account.profile.service
 
-import com.soom.monolithic_api.domain.account.profile.dto.ProfileImageDto
+import com.soom.monolithic_api.domain.account.profile.data.dto.ProfileImageDto
 import org.springframework.web.multipart.MultipartFile
 
 interface AccountProfileImageService {
