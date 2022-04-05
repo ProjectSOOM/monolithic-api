@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-@Service
+@Service //TODO 추후 실제 Service 로 전환
 class DummyLoginAccountService: LoginAccountService {
     override fun getLoginAccount(): AccountDto = StudentDto(
         AccountBasicDto("지인호", GenderType.남성, LocalDate.MIN, "", SchoolType.광주_소프트웨어_마이스터_고등학교),
