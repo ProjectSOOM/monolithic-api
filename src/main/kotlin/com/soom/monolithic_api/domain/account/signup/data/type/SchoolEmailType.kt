@@ -8,7 +8,9 @@ enum class SchoolEmailType(
 ) {
     광주_소프트웨어_마이스터고등학교(
         SchoolType.광주_소프트웨어_마이스터_고등학교,
-        regexValidator("s[0-9]@gsm.hs.kr")
+        composeValidator(
+            regexValidator("[s|t][0-9]{5}@gsm.hs.kr"),
+            regexValidator("student[0-9]{6}@gsm.hs.kr"))
     ),
     대덕_소프트웨어_마이스터고등학교(
         SchoolType.대덕_소프트웨어_마이스터_고등학교,
@@ -24,6 +26,7 @@ enum class SchoolEmailType(
     )
 }
 
-fun regexValidator(regex: String): (String) -> Boolean = {
-    it.matches(regex.toRegex())
+fun regexValidator(regex: String): (String) -> Boolean = { it.matches(regex.toRegex()) }
+fun composeValidator(vararg validators: (String) -> Boolean): (String) -> Boolean = {
+    validators.fold(false) { acc, validator -> acc || validator(it) }
 }
