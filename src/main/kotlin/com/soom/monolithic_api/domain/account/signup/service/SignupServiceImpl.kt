@@ -10,8 +10,12 @@ import com.soom.monolithic_api.domain.account.common.repository.AccountRepositor
 import com.soom.monolithic_api.domain.account.signup.dto.SignupDto
 import com.soom.monolithic_api.domain.account.signup.dto.StudentSignupDto
 import com.soom.monolithic_api.domain.account.signup.dto.TeacherSignupDto
+import com.soom.monolithic_api.domain.account.signup.exception.WrongSchoolEmailException
+import com.soom.monolithic_api.domain.account.signup.type.SchoolEmailType
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.stereotype.Service
 
+@Service
 class SignupServiceImpl(
     private val accountRepository: AccountRepository,
     private val passwordEncoder: PasswordEncoder
@@ -45,6 +49,9 @@ class SignupServiceImpl(
     }
     //이메일에서 학교정보 추출
     private fun getSchoolByEmail(email: String): SchoolType {
-        TODO("이메일을 통해서 학교 구하는 로직 작성")
+        SchoolEmailType.values()
+            .firstOrNull { it.validator.invoke(email) }
+            ?.let { return it.schoolType }
+            ?: throw WrongSchoolEmailException(email)
     }
 }
