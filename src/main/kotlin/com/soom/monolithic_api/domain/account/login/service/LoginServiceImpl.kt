@@ -4,7 +4,7 @@ import com.soom.monolithic_api.domain.account.common.data.dto.AccountDto
 import com.soom.monolithic_api.domain.account.common.exception.UnknownAccountEmailException
 import com.soom.monolithic_api.domain.account.common.exception.UnknownAccountIdException
 import com.soom.monolithic_api.domain.account.common.template.AccountTemplate
-import com.soom.monolithic_api.domain.account.login.dto.LoginTokenDto
+import com.soom.monolithic_api.domain.account.login.data.dto.LoginTokenDto
 import com.soom.monolithic_api.domain.account.login.exception.WrongEmailException
 import com.soom.monolithic_api.domain.account.login.exception.WrongPasswordException
 import com.soom.monolithic_api.domain.account.login.exception.WrongRefreshTokenException

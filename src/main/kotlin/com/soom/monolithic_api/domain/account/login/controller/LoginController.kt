@@ -1,8 +1,8 @@
 package com.soom.monolithic_api.domain.account.login.controller
 
-import com.soom.monolithic_api.domain.account.login.request.LoginRefreshRequest
-import com.soom.monolithic_api.domain.account.login.request.LoginRequest
-import com.soom.monolithic_api.domain.account.login.response.LoginResponse
+import com.soom.monolithic_api.domain.account.login.data.request.LoginRefreshRequest
+import com.soom.monolithic_api.domain.account.login.data.request.LoginRequest
+import com.soom.monolithic_api.domain.account.login.data.response.LoginResponse
 import com.soom.monolithic_api.domain.account.login.service.LoginService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

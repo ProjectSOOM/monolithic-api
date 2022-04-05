@@ -1,4 +1,4 @@
-package com.soom.monolithic_api.domain.account.login.dto
+package com.soom.monolithic_api.domain.account.login.data.dto
 
 class LoginTokenDto(
     val accessToken: String,
