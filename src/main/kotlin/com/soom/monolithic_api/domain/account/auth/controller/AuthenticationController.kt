@@ -2,6 +2,7 @@ package com.soom.monolithic_api.domain.account.auth.controller
 
 import com.soom.monolithic_api.domain.account.auth.request.EmailRequest
 import com.soom.monolithic_api.domain.account.auth.response.EmailTokenResponse
+import com.soom.monolithic_api.domain.account.auth.response.TeacherTokenResponse
 import com.soom.monolithic_api.domain.account.auth.service.EmailAuthService
 import com.soom.monolithic_api.domain.account.auth.service.EmailTokenService
 import com.soom.monolithic_api.domain.account.auth.service.TeacherAuthService
@@ -32,7 +33,8 @@ class AuthenticationController(
             .let { ResponseEntity.ok(it) }
     //교사토큰 조회
     @GetMapping("/teacher")
-    fun getTeacherCode() {
-
-    }
+    fun getTeacherCode(): ResponseEntity<TeacherTokenResponse> =
+        teacherAuthService.generateTeacherToken()
+            .let { TeacherTokenResponse(it) }
+            .let { ResponseEntity.ok(it) }
 }
