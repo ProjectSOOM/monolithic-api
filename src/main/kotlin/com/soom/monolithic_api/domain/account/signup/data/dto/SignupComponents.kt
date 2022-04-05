@@ -1,4 +1,4 @@
-package com.soom.monolithic_api.domain.account.signup.dto
+package com.soom.monolithic_api.domain.account.signup.data.dto
 
 import com.soom.monolithic_api.domain.account.common.data.type.DepartmentType
 import com.soom.monolithic_api.domain.account.common.data.type.GenderType

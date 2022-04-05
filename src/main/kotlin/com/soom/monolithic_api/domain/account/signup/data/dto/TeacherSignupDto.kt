@@ -1,4 +1,4 @@
-package com.soom.monolithic_api.domain.account.signup.dto
+package com.soom.monolithic_api.domain.account.signup.data.dto
 
 data class TeacherSignupDto (
     override val auth: SigninCommonAuthDto,
