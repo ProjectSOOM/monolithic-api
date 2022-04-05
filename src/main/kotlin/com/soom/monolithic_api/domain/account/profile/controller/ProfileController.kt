@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
 @RestController
-@RequestMapping("/api/v1/account/profile")
+@RequestMapping("/api/v2/account/profile")
 class ProfileController (
     private val profileService: AccountService,
     private val profileImageService: AccountProfileImageService,
