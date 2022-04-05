@@ -1,9 +1,9 @@
 package com.soom.monolithic_api.domain.account.profile.controller
 
-import com.soom.monolithic_api.domain.account.profile.dto.ProfileImageDto
-import com.soom.monolithic_api.domain.account.profile.response.AddProfileImageResponse
-import com.soom.monolithic_api.domain.account.profile.response.EditProfileImageResponse
-import com.soom.monolithic_api.domain.account.profile.response.GetProfileResponse
+import com.soom.monolithic_api.domain.account.profile.data.dto.ProfileImageDto
+import com.soom.monolithic_api.domain.account.profile.data.response.AddProfileImageResponse
+import com.soom.monolithic_api.domain.account.profile.data.response.EditProfileImageResponse
+import com.soom.monolithic_api.domain.account.profile.data.response.GetProfileResponse
 import com.soom.monolithic_api.domain.account.profile.service.AccountProfileImageService
 import com.soom.monolithic_api.domain.account.common.service.AccountService
 import com.soom.monolithic_api.global.service.LoginAccountService
@@ -35,7 +35,7 @@ class ProfileController (
     @PostMapping("/image")
     fun addProfileImageAtLoginAccount(@ModelAttribute image: MultipartFile): ResponseEntity<AddProfileImageResponse> =
         saveProfileAndGetDto(getLoginAccountId(), image)
-            .let {AddProfileImageResponse.of(it) }
+            .let { AddProfileImageResponse.of(it) }
             .let { ResponseEntity.ok(it) }
     //로그인된 게정의 프로필 사진 수정
     @PutMapping("/image")
@@ -50,6 +50,6 @@ class ProfileController (
             .let{ profileImageService.delete(it) }
             .let { ResponseEntity.noContent().build() }
 
-    private fun saveProfileAndGetDto(id: Long, image: MultipartFile): ProfileImageDto  = profileImageService.save(id, image)
+    private fun saveProfileAndGetDto(id: Long, image: MultipartFile): ProfileImageDto = profileImageService.save(id, image)
     private fun getLoginAccountId(): Long = loginAccountService.getLoginAccount().meta.id
 }

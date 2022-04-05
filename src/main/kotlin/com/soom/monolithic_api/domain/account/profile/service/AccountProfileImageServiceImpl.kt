@@ -1,12 +1,12 @@
 package com.soom.monolithic_api.domain.account.profile.service
 
 import com.soom.monolithic_api.domain.account.common.data.dto.AccountDto
-import com.soom.monolithic_api.domain.account.profile.dto.ProfileImageDto
+import com.soom.monolithic_api.domain.account.profile.data.dto.ProfileImageDto
 import com.soom.monolithic_api.domain.account.common.data.entity.AccountEntity
 import com.soom.monolithic_api.domain.account.common.data.entity.StudentEntity
 import com.soom.monolithic_api.domain.account.common.data.entity.TeacherEntity
 import com.soom.monolithic_api.domain.account.common.repository.AccountRepository
-import com.soom.monolithic_api.domain.account.common.template.RepositoryAccountTemplate
+import com.soom.monolithic_api.domain.account.common.template.AccountTemplate
 import com.soom.monolithic_api.infra.service.AwsS3Service
 import com.soom.monolithic_api.infra.type.S3DataType
 import org.springframework.stereotype.Service
@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile
 
 @Service
 class AccountProfileImageServiceImpl(
-    private val accountTemplate: RepositoryAccountTemplate,
+    private val accountTemplate: AccountTemplate,
     private val awsS3Service: AwsS3Service,
     private val accountRepository: AccountRepository
 ): AccountProfileImageService {

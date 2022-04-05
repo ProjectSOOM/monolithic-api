@@ -1,6 +1,6 @@
-package com.soom.monolithic_api.domain.account.profile.response
+package com.soom.monolithic_api.domain.account.profile.data.response
 
-import com.soom.monolithic_api.domain.account.profile.dto.ProfileImageDto
+import com.soom.monolithic_api.domain.account.profile.data.dto.ProfileImageDto
 
 //프로필 이미지 정보를 담은 응답
 sealed class ProfileImageResponse (

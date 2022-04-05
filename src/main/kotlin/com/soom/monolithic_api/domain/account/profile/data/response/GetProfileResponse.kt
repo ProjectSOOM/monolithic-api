@@ -1,4 +1,4 @@
-package com.soom.monolithic_api.domain.account.profile.response
+package com.soom.monolithic_api.domain.account.profile.data.response
 
 import com.soom.monolithic_api.domain.account.common.data.dto.AccountDto
 import com.soom.monolithic_api.domain.account.common.data.dto.StudentDto
