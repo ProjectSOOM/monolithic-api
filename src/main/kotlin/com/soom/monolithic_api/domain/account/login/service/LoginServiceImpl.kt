@@ -9,7 +9,9 @@ import com.soom.monolithic_api.domain.account.login.exception.WrongEmailExceptio
 import com.soom.monolithic_api.domain.account.login.exception.WrongPasswordException
 import com.soom.monolithic_api.domain.account.login.exception.WrongRefreshTokenException
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.stereotype.Service
 
+@Service
 class LoginServiceImpl(
     private val loginTokenService: LoginTokenService,
     private val accountTemplate: AccountTemplate,

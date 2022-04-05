@@ -7,4 +7,3 @@ import java.util.*
 interface StudentRepository : JpaRepository<StudentEntity, Long> {
     fun findByEmail(email: String): Optional<StudentEntity>
 }
-

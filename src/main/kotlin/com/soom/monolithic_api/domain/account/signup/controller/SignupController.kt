@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/v2/account/signup")
@@ -21,12 +22,12 @@ class SignupController(
     ) {
     //학생 회원가입
     @PostMapping("/student")
-    fun signupStudent(@RequestBody request: StudentSignupRequest): ResponseEntity<AccountDto> = requestToDto(request)
+    fun signupStudent(@RequestBody @Valid request: StudentSignupRequest): ResponseEntity<AccountDto> = requestToDto(request)
             .let { signupService.signupStudent(it) }
             .let { ResponseEntity.ok(it) }
     //교사 회원가입
     @PostMapping("/teacher")
-    fun signupTeacher(@RequestBody request: TeacherSignupRequest): ResponseEntity<AccountDto> = requestToDto(request)
+    fun signupTeacher(@RequestBody @Valid request: TeacherSignupRequest): ResponseEntity<AccountDto> = requestToDto(request)
         .let { signupService.signupTeacher(it) }
         .let { ResponseEntity.ok(it) }
 
