@@ -6,7 +6,7 @@ import com.soom.monolithic_api.domain.account.profile.data.response.EditProfileI
 import com.soom.monolithic_api.domain.account.profile.data.response.GetProfileResponse
 import com.soom.monolithic_api.domain.account.profile.service.AccountProfileImageService
 import com.soom.monolithic_api.domain.account.common.service.AccountService
-import com.soom.monolithic_api.global.service.LoginAccountService
+import com.soom.monolithic_api.global.security.service.LoginAccountService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -16,7 +16,8 @@ import org.springframework.web.multipart.MultipartFile
 class ProfileController (
     private val profileService: AccountService,
     private val profileImageService: AccountProfileImageService,
-    private val loginAccountService: LoginAccountService) {
+    private val loginAccountService: LoginAccountService
+) {
     //계정 ID로 프로필 조회
     @GetMapping("/{id}")
     fun getProfileByAccountId(@PathVariable id: Long): ResponseEntity<out GetProfileResponse> =

@@ -1,4 +1,4 @@
-package com.soom.monolithic_api.global.config
+package com.soom.monolithic_api.global.security.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

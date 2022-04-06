@@ -1,9 +1,9 @@
 package com.soom.monolithic_api.domain.account.auth.service
 
-import com.soom.monolithic_api.domain.account.auth.entity.EmailAuthCodeEntity
+import com.soom.monolithic_api.domain.account.auth.data.entity.EmailAuthCodeEntity
 import com.soom.monolithic_api.domain.account.auth.exception.UnknownAuthDataCodeException
 import com.soom.monolithic_api.domain.account.auth.repository.EmailAuthCodeRepository
-import com.soom.monolithic_api.global.service.EmailSenderService
+import com.soom.monolithic_api.infra.email.service.EmailSenderService
 import org.springframework.stereotype.Service
 
 @Service
