@@ -28,6 +28,9 @@ spring:
     url: jdbc:mysql://${DB_HOST}:${DB_PORT}/monolithic_api_dev
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
 #로컬환경에서 운영되므로, EC2 Metadata 설정중 오류가 발생한다.
 # 자세한 내용은 https://h-kkaemi.tistory.com/24 참조
 logging.level.com.amazonaws.util.EC2MetadataUtils: error

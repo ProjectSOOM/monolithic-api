@@ -1,5 +1,5 @@
 package com.soom.monolithic_api.domain.account.auth.service
 
-interface TeacherAuthService {
+interface TeacherTokenService {
     fun generateTeacherToken(): String
 }

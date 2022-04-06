@@ -5,7 +5,7 @@ import com.soom.monolithic_api.domain.account.auth.data.response.EmailTokenRespo
 import com.soom.monolithic_api.domain.account.auth.data.response.TeacherTokenResponse
 import com.soom.monolithic_api.domain.account.auth.service.EmailAuthService
 import com.soom.monolithic_api.domain.account.auth.service.EmailTokenService
-import com.soom.monolithic_api.domain.account.auth.service.TeacherAuthService
+import com.soom.monolithic_api.domain.account.auth.service.TeacherTokenService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/v2/account/auth")
 class AuthenticationController(
     private val emailAuthService: EmailAuthService,
-    private val teacherAuthService: TeacherAuthService,
+    private val teacherTokenService: TeacherTokenService,
     private val emailTokenService: EmailTokenService
 ) {
     //인증코드를 메일로 송신
@@ -34,7 +34,7 @@ class AuthenticationController(
     //교사토큰 조회
     @GetMapping("/teacher")
     fun getTeacherCode(): ResponseEntity<TeacherTokenResponse> =
-        teacherAuthService.generateTeacherToken()
+        teacherTokenService.generateTeacherToken()
             .let { TeacherTokenResponse(it) }
             .let { ResponseEntity.ok(it) }
 }

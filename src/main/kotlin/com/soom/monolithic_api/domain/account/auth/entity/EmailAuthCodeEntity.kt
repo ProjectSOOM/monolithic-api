@@ -1,7 +1,7 @@
 package com.soom.monolithic_api.domain.account.auth.entity
 
-import javax.persistence.Entity
-import javax.persistence.Id
+import org.springframework.data.annotation.Id
+import org.springframework.data.redis.core.RedisHash
 
-@Entity
-class EmailAuthCodeEntity(val email: String, @Id val authCode: String)
+@RedisHash("email-auth-code", timeToLive = 60 * 5)
+class EmailAuthCodeEntity(@Id val authCode: String, val email: String)
