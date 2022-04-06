@@ -1,4 +1,4 @@
-package com.soom.monolithic_api.infra.service
+package com.soom.monolithic_api.infra.s3.service
 
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile

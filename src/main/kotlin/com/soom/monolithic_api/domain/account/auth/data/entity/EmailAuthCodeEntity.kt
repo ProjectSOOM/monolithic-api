@@ -1,4 +1,4 @@
-package com.soom.monolithic_api.domain.account.auth.entity
+package com.soom.monolithic_api.domain.account.auth.data.entity
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.redis.core.RedisHash

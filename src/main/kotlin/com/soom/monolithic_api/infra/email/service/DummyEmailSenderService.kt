@@ -1,4 +1,4 @@
-package com.soom.monolithic_api.global.service
+package com.soom.monolithic_api.infra.email.service
 
 import org.springframework.stereotype.Service
 

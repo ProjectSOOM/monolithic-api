@@ -7,8 +7,8 @@ import com.soom.monolithic_api.domain.account.common.data.entity.StudentEntity
 import com.soom.monolithic_api.domain.account.common.data.entity.TeacherEntity
 import com.soom.monolithic_api.domain.account.common.repository.AccountRepository
 import com.soom.monolithic_api.domain.account.common.template.AccountTemplate
-import com.soom.monolithic_api.infra.service.AwsS3Service
-import com.soom.monolithic_api.infra.type.S3DataType
+import com.soom.monolithic_api.infra.s3.service.AwsS3Service
+import com.soom.monolithic_api.infra.s3.type.S3DataType
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 
