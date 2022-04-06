@@ -11,10 +11,6 @@ class EmailAuthServiceImpl(
     private val emailSenderService: EmailSenderService,
     private val emailAuthCodeRepository: EmailAuthCodeRepository
 ): EmailAuthService {
-    //인증코드를 생성한다
-    override fun generateAuthCode(): String =
-        (0..999999).random()
-            .let { String.format("%06d", it) }
     //인증정보를 저장한다
     override fun addAuthData(code: String, email: String): Unit =
         EmailAuthCodeEntity(code, email)
