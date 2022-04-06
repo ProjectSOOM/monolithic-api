@@ -57,7 +57,7 @@ dependencies {
     implementation("com.github.AppS01u7E:NeisApi:0.04.00")
 
     /////MANAGING/////
-    implementation("org.springdoc:springdoc-openapi-webflux-ui:1.5.10") //openapi
+    implementation ("org.springdoc:springdoc-openapi-ui:1.5.4")//openapi
     implementation("org.apache.logging.log4j:log4j-api:2.17.0") //logging
 
     /////INFRA/////
