@@ -40,7 +40,7 @@ class LoginServiceImpl(
             (it as? UnknownAccountEmailException) //만약 오류가 UnknownAccountEmailException 이라면,
                 ?.run { throw WrongEmailException(it.email) } //WrongEmailException 로 래핑하여 반환한다.
                 ?: throw it //아니라면, 오류를 그대로 반환한다.
-        }.onSuccess { return it }.getOrThrow() //오류가 발생하지 않았을 경우, 반환된 AccountDto 를 반환한다.
+        }.getOrThrow() //오류가 발생하지 않았을 경우, 반환된 AccountDto 를 반환한다.
     //재발급 토큰으로 계정정보 조회
     private fun getAccount(refreshToken: String): AccountDto =
         runCatching {
@@ -52,5 +52,5 @@ class LoginServiceImpl(
             (it as? UnknownAccountIdException) //만약 오류가 UnknownAccountIdException 이라면,
                 ?.run { throw WrongRefreshTokenException(refreshToken) } //WrongRefreshTokenException 로 래핑하여 반환한다.
                 ?: throw it //아니라면, 오류를 그대로 반환한다.
-        }.onSuccess { return it }.getOrThrow() //오류가 발생하지 않았을 경우, 반환된 AccountDto 를 반환한다.
+        }.getOrThrow() //오류가 발생하지 않았을 경우, 반환된 AccountDto 를 반환한다.
 }
