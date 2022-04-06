@@ -1,6 +1,6 @@
-package com.soom.monolithic_api.global.jwt.util
+package com.soom.monolithic_api.global.token.jwt.util
 
-import com.soom.monolithic_api.global.jwt.exception.WrongJwtTokenException
+import com.soom.monolithic_api.global.token.jwt.exception.WrongJwtTokenException
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm

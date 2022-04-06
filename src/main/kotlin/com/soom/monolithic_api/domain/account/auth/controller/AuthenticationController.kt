@@ -5,8 +5,8 @@ import com.soom.monolithic_api.domain.account.auth.data.response.EmailTokenRespo
 import com.soom.monolithic_api.domain.account.auth.data.response.TeacherTokenResponse
 import com.soom.monolithic_api.domain.account.auth.service.AuthCodeService
 import com.soom.monolithic_api.domain.account.auth.service.EmailAuthService
-import com.soom.monolithic_api.domain.account.auth.service.EmailTokenService
-import com.soom.monolithic_api.domain.account.auth.service.TeacherTokenService
+import com.soom.monolithic_api.domain.account.auth.util.EmailTokenUtil
+import com.soom.monolithic_api.domain.account.auth.util.TeacherTokenUtil
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*
 class AuthenticationController(
     private val authCodeService: AuthCodeService,
     private val emailAuthService: EmailAuthService,
-    private val teacherTokenService: TeacherTokenService,
-    private val emailTokenService: EmailTokenService
+    private val teacherTokenUtil: TeacherTokenUtil,
+    private val emailTokenUtil: EmailTokenUtil
 ) {
     //인증코드를 메일로 송신
     @PostMapping
@@ -31,13 +31,13 @@ class AuthenticationController(
     @GetMapping("/email/{code}")
     fun getEmailTokenByCode(@PathVariable code: String): ResponseEntity<EmailTokenResponse> =
         emailAuthService.getEmailByAuthCode(code)
-            .let { emailTokenService.generateEmailToken(it) }
+            .let { emailTokenUtil.encode(it) }
             .let { EmailTokenResponse(it) }
             .let { ResponseEntity.ok(it) }
     //교사토큰 조회
     @GetMapping("/teacher")
     fun getTeacherCode(): ResponseEntity<TeacherTokenResponse> =
-        teacherTokenService.generateTeacherToken()
+        teacherTokenUtil.encode()
             .let { TeacherTokenResponse(it) }
             .let { ResponseEntity.ok(it) }
 }
