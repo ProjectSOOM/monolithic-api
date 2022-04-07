@@ -3,8 +3,6 @@ package com.soom.monolithic_api.domain.account.profile.service
 import com.soom.monolithic_api.domain.account.common.data.dto.AccountDto
 import com.soom.monolithic_api.domain.account.profile.data.dto.ProfileImageDto
 import com.soom.monolithic_api.domain.account.common.data.entity.AccountEntity
-import com.soom.monolithic_api.domain.account.common.data.entity.StudentEntity
-import com.soom.monolithic_api.domain.account.common.data.entity.TeacherEntity
 import com.soom.monolithic_api.domain.account.common.repository.AccountRepository
 import com.soom.monolithic_api.domain.account.common.template.AccountTemplate
 import com.soom.monolithic_api.infra.s3.service.AwsS3Service
@@ -27,10 +25,8 @@ class AccountProfileImageServiceImpl(
 
     private fun deleteAccountProfile(): (AccountEntity) -> Unit = { entity -> run { changeAccountProfile("").invoke(entity) } }
     private fun changeAccountProfile(imageId: String): (AccountEntity) -> AccountDto = { entity ->
-        when(entity) {
-            is StudentEntity -> entity.copy(profileImage = imageId)
-            is TeacherEntity -> entity.copy(profileImage = imageId)
-        }.apply{ accountRepository.save(this) }
+        entity.apply{profileImage = imageId}
+            .apply{ accountRepository.save(this) }
             .run (AccountEntity::toDto)
     }
 }

@@ -13,17 +13,17 @@ import javax.persistence.*
 @Inheritance(strategy = InheritanceType.JOINED)
 sealed class AccountEntity(
     @Id
-    val id: Long,
-    val email: String,
-    val name: String,
-    val gender: GenderType,
-    val birth: LocalDate,
-    val encodedPassword: String,
+    var id: Long,
+    var email: String,
+    var name: String,
+    var gender: GenderType,
+    var birth: LocalDate,
+    var encodedPassword: String,
     @Enumerated(EnumType.STRING)
-    val role: RoleType,
+    var role: RoleType,
     @Enumerated(EnumType.STRING)
-    val school: SchoolType,
-    val profileImage : String
+    var school: SchoolType,
+    var profileImage : String
 ) {
     abstract fun toDto(): AccountDto
 
