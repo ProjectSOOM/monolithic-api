@@ -5,7 +5,10 @@ import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConstructorBinding
 @ConfigurationProperties("soom.email")
-data class EmailTokenJwtProperty (
-    val secret: String,
-    val expiredSecond: Long
-)
+data class EmailProperty (
+    val jwt: EmailJwtProperty,
+    val smtp: EmailSmtpProperty
+) {
+    data class EmailJwtProperty (val secret: String, val expiredSecond: Long)
+    data class EmailSmtpProperty (val title: String, val templatePath: String)
+}
