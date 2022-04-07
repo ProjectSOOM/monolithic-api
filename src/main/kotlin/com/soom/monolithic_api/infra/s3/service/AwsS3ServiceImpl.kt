@@ -13,7 +13,7 @@ import java.util.*
 class AwsS3ServiceImpl(
     private val amazonS3: AmazonS3
 ) : AwsS3Service {
-    @Value("\${aws.s3.bucket}")
+    @Value("\${cloud.aws.s3.bucket}")
     lateinit var bucket: String
 
     override fun upload(image: MultipartFile, filePath: String): String =

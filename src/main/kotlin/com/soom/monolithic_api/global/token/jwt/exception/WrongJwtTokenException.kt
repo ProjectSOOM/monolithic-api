@@ -1,4 +1,4 @@
-package com.soom.monolithic_api.global.jwt.exception
+package com.soom.monolithic_api.global.token.jwt.exception
 
 class WrongJwtTokenException(token: String) : RuntimeException(message(token))
 

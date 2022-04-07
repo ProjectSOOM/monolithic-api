@@ -1,6 +1,6 @@
-package com.soom.monolithic_api.global.jwt.util
+package com.soom.monolithic_api.global.token.jwt.util
 
-import com.soom.monolithic_api.global.jwt.exception.WrongJwtTokenException
+import com.soom.monolithic_api.global.token.jwt.exception.WrongJwtTokenException
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -29,6 +29,6 @@ abstract class StandardJwtUtil<T>: JwtUtil<T> {
 
     protected abstract fun getExpiredAt(now: LocalDateTime): LocalDateTime
     protected abstract fun getSecret(): String
-    protected abstract fun getClaims(data: T): Claims
+    protected abstract fun getClaims(data: T): Map<String, Any>
     protected abstract fun getData(claims: Claims): T
 }
