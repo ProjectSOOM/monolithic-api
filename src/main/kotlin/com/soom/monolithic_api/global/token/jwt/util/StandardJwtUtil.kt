@@ -29,6 +29,6 @@ abstract class StandardJwtUtil<T>: JwtUtil<T> {
 
     protected abstract fun getExpiredAt(now: LocalDateTime): LocalDateTime
     protected abstract fun getSecret(): String
-    protected abstract fun getClaims(data: T): Claims
+    protected abstract fun getClaims(data: T): Map<String, Any>
     protected abstract fun getData(claims: Claims): T
 }
