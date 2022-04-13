@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### SpringBoot ###
+
+### Security ###
+src/main/resources/secret
