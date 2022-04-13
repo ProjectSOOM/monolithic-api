@@ -35,8 +35,12 @@ spring:
     port: ${REDIS_PORT}
 soom:
   email:
-    secret: ${SOOM_EMAIL_JWT_SECRET}
-    expired-second: ${SOOM_EMAIL_JWT_EXPIRED_SECOND}
+    jwt:
+      secret: ${SOOM_EMAIL_JWT_SECRET}
+      expired-second: ${SOOM_EMAIL_JWT_EXPIRED_SECOND}
+    smtp:
+      title: '[SOOM] 인증메일이 도착했어요!'
+      template-path: /templates/email/auth-email.html
 #로컬환경에서 운영되므로, EC2 Metadata 설정중 오류가 발생한다.
 # 자세한 내용은 https://h-kkaemi.tistory.com/24 참조
 logging.level.com.amazonaws.util.EC2MetadataUtils: error

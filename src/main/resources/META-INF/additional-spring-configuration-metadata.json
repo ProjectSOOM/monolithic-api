@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "soom.email.jwt.secret",
+      "type": "java.lang.String",
+      "description": "Description for soom.email.jwt.secret."
+    },
+    {
+      "name": "soom.email.jwt.expired-second",
+      "type": "java.lang.String",
+      "description": "Description for soom.email.jwt.expired-second."
+    },
+    {
+      "name": "soom.email.smtp.template-path",
+      "type": "java.lang.String",
+      "description": "Description for soom.email.smtp.template-path."
+    },
+    {
+      "name": "soom.email.smtp.title",
+      "type": "java.lang.String",
+      "description": "Description for soom.email.smtp.title."
+    }
+  ] }
